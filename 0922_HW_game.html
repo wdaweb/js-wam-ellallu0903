@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Catch soot sprite !</title>
+    <!-- font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- animation -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+
+    <style>
+      body {
+        font-family: "Roboto Mono", monospace;
+        width: 100vw;
+        height: 100vh;
+        margin: 0;
+        background: url(./images/chihiro037.jpg) no-repeat;
+        background-size: cover;
+        /* 鼠標，圖片 "往右/往下" 對齊鼠標的點 */
+        cursor: url(./images/cursor-3.png), auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+      }
+
+      /* 格子大小 */
+      #game td {
+        width: 200px;
+        height: 200px;
+        border: 1px solid rgba(255, 255, 255, 0);
+        background-color: rgba(255, 255, 255, 0.3);
+        border-radius: 20%;
+      }
+
+      /* 出現的 */
+      .A {
+        background: url(./images/Susuwatari.png) no-repeat;
+        animation: beforeHit 1.2s infinite;
+      }
+
+      @keyframes beforeHit {
+        from {
+          background-position: 50% 60%;
+        }
+        to {
+          background-position: 50% 30%;
+        }
+      }
+
+      .C {
+        background: url(./images/star3.png) no-repeat center center;
+        animation: beforeHit 1.2s infinite;
+      }
+
+      .E {
+        background: url(./images/mouse180.png) no-repeat;
+        animation: beforeHit 1.2s infinite;
+      }
+
+      /* 打到的 */
+      .B {
+        background: url(./images/Susuwatari2.png) no-repeat;
+        animation: afterHit 1.2s infinite;
+      }
+
+      .D {
+        background: url(./images/star4.png) no-repeat;
+        animation: afterHit 1.2s infinite;
+      }
+
+      .F {
+        background: url(./images/mouse2.png) no-repeat;
+        animation: afterHit 1.2s infinite;
+      }
+      @keyframes afterHit {
+        from {
+          background-position: 50% 30%;
+          transform: scale(1);
+        }
+        to {
+          background-position: 50% 30%;
+          transform: scale(1.1);
+        }
+      }
+
+      .title {
+        font-family: "Press Start 2P", cursive;
+        font-size: 48px;
+        color: rgba(255, 255, 255, 0.8);
+        /* text-align: center; */
+        -webkit-text-stroke: 1.5px #000;
+      }
+
+      .startbox {
+        display: inline-block;
+        position: relative;
+        width: 500px;
+        font-size: 35px;
+        font-family: "Press Start 2P", '微軟正黑體';
+        line-height: 150%;
+        text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+        -webkit-text-stroke: 0.5px rgba(255, 255, 255, 0.8);
+        position: relative;
+        top: 5%;
+        left: 5%;
+      }
+      .botton-style {
+        width: 250px;
+        height: 70px;
+        color: white;
+        border-radius: 10px;
+        font-size: 28px;
+        font-family: "Press Start 2P", cursive;
+        background-color: rgba(232, 48, 21, 0.7);
+        border: 3px solid rgba(232, 48, 21, 0.9);
+      }
+      .botton-style:hover {
+        cursor: url(./images/cursor-1.cur), pointer;
+        filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5))
+          drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+        transform: scale(1.05);
+      }
+
+      .rule-botton-style {
+        width: 250px;
+        height: 70px;
+        color: white;
+        border-radius: 10px;
+        font-size: 28px;
+        font-family: "Press Start 2P", cursive;
+        background-color: rgba(233, 139, 42, 0.7);
+        border: 3px solid rgba(233, 139, 42, 0.9);
+      }
+      .rule-botton-style:hover {
+        cursor: url(./images/cursor-1.cur), pointer;
+        filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5))
+          drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+        transform: scale(1.05);
+      }
+
+      /* 小煤炭動畫 *3 */
+      .smallImg1 {
+        position: relative;
+        top: 420px;
+        left: -1400px;
+        animation: smallImg1 5s alternate infinite;
+      }
+      .smallImg1 img {
+        width: 76px;
+        height: 82px;
+      }
+      @keyframes smallImg1 {
+        from {
+          transform: translate(0px, 0);
+        }
+        to {
+          transform: translate(150px, 0);
+        }
+      }
+
+      .smallImg2 {
+        position: relative;
+        top: 400px;
+        left: -100px;
+        animation: smallImg2 3s alternate infinite;
+      }
+      .smallImg2 img {
+        width: 62px;
+        height: 105px;
+      }
+      @keyframes smallImg2 {
+        from {
+          transform: translate(150px, 0);
+        }
+        to {
+          transform: translate(0px, 0);
+        }
+      }
+      .smallImg3 {
+        position: relative;
+        top: 380px;
+        left: 100px;
+        animation: smallImg3 1s alternate infinite;
+      }
+      .smallImg3 img {
+        width: 113px;
+        height: 186px;
+      }
+      @keyframes smallImg3 {
+        from {
+          transform: translate(0, 0);
+        }
+        to {
+          transform: translate(0, -50px);
+        }
+      }
+
+      .time {
+          font-size: 60px;
+          text-align: center;
+          transform: translateX(-30%);
+          color:rgba(232, 48, 21, 0.8);
+      }
+
+
+      .copyright {
+        width: 250px;
+        height: 50px;
+        position: relative;
+        left: -750px;
+        top: 450px;
+        z-index: 999;
+      }
+
+      .mouse {
+        cursor: url(./images/cursor-2.cur), auto;
+      }
+
+      .win {
+        width:1000px;
+        height: 1000px;
+        background-image: url(./images/win2.png);
+        background-repeat: no-repeat;
+        background-size:contain;
+        position: absolute;
+        top: 15%;
+        left: 5%;
+      }
+
+
+      .lose {
+        width: 1400px;
+        height: 1400px;
+        background-image: url(./images/lose3.png);
+        background-repeat: no-repeat;
+        background-size:contain;
+        position: absolute;
+        top: 25%;
+        left: 28%;
+      }
+
+      .high {
+       width: 1000px;
+       height: 1000px; 
+       background-image: url(./images/highscore.png);
+        background-repeat: no-repeat;
+        background-size:contain;
+        position: absolute;
+        top: 25%;
+        left: 22%;
+      }
+
+      .rule {
+        width: 630px;
+        height: 780px;
+        background-image: url(./images/RULES.png);
+        background-repeat: no-repeat;
+        background-size:contain;
+        position: absolute;
+        top: 10%;
+        left: 33%;
+      }
+      
+      .rule:hover {
+        cursor: url(./images/cursor-1.cur), pointer;
+        filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.5))
+          drop-shadow(0 0 8px rgba(255, 255, 255, 0.5));
+        transform: scale(1.01);
+      }
+    </style>
+  </head>
+  <body id="container">
+    <!-- 左側 -->
+    <div style="margin:20px 50px 20px 300px" id="games">
+      <div class="title animate__animated animate__flipInX">
+        Catch <br>
+        soot sprite!
+      </div>
+      <br />
+      <table id="game">
+        <!-- 對應鍵盤數字的排列 -->
+        <tr>
+          <td id="hole7"></td>
+          <td id="hole8"></td>
+          <td id="hole9"></td>
+        </tr>
+        <tr>
+          <td id="hole4"></td>
+          <td id="hole5"></td>
+          <td id="hole6"></td>
+        </tr>
+        <tr>
+          <td id="hole1"></td>
+          <td id="hole2"></td>
+          <td id="hole3"></td>
+        </tr>
+      </table>
+    </div>
+    <!-- 右側 -->
+    <div class="startbox">
+      <input
+      type="button"
+      value="RULES"
+      id="rule"
+      class="rule-botton-style animate__animated animate__pulse animate__infinite animate__slower"
+    />
+      <p>Score：<span id="text-score">0</span></p>
+      <p>
+        Best Record
+        <br />
+        Player：<span id="text-highplayer"></span>
+        <br />
+        Score：<span id="text-highscore"></span>
+        <div><img src="./images/clock_icon.png" style="position: relative;left: 5%;display: inline-block;" class="animate__animated  animate__infinite" id="clockImg"><div id="secs" class="time animate__animated  animate__infinite animate__slow" style="display: inline-block ;position: relative;left: 14%;">12</div></div>
+      </p>
+      <input
+      type="button"
+      value="START!"
+      id="btn-start"
+      class="botton-style animate__animated animate__flash animate__infinite animate__slower"
+    />
+    <br>
+    </div>
+    <!-- 小煤炭動畫 -->
+    <div class="smallImg1">
+      <img src="./images/Susuwatari-1.png" alt="" />
+    </div>
+    <div class="smallImg2">
+      <img src="./images/Susuwatari-2.png" alt="" />
+    </div>
+    <div class="smallImg3">
+      <img src="./images/Susuwatari-3.png" alt="" />
+    </div>
+    <!-- 輸贏圖片/最高分圖/規則圖 -->
+    <div id="win" class="animate__animated animate__slow"></div>
+    <div id="lose" class="animate__animated animate__slow "></div>
+    <div id="high" class="animate__animated animate__slow"></div>
+    <div id="ruleImg"></div>
+    <!-- copyright -->
+    <div class="copyright">Game &copy; Yi-Zhen Lu</div>
+
+
+    <script>
+      const btnStart = document.getElementById("btn-start");
+      const holes = document.querySelectorAll("#game td");
+      const textScore = document.getElementById("text-score");
+      const textHighPlayer = document.getElementById("text-highplayer");
+      const textHighScore = document.getElementById("text-highscore");
+      const secs = document.getElementById("secs")
+      const games = document.getElementById("games")
+      const win = document.getElementById("win")
+      const lose = document.getElementById("lose")
+      const high = document.getElementById("high")
+      const rule = document.getElementById("rule")
+      const ruleImg = document.getElementById("ruleImg")
+      const container = document.getElementById("container")
+      const clockImg = document.getElementById("clockImg")
+      
+
+      //   設計分的變數
+      let score = 0;
+      //   判斷是否在遊戲中
+      let isInGame = false;
+      //   遊戲計時變換的變數
+      let timer = 0;
+      // 保存最高分數紀錄在網址上
+      // localStorage 只能放文字
+      // 用 JSON.parse() 包起來，轉成可以使用的陣列
+      let highscore = { name: "", score: 0 };
+      let highscoreStorage = JSON.parse(localStorage.getItem("highscore"));
+      if (highscoreStorage !== null) {
+        highsocre = highscoreStorage;
+        textHighPlayer.innerText = highscore.name;
+        textHighScore.innerText = highscore.score;
+      }
+
+      btnStart.onclick = () => {
+        //   按下開始按鈕後停用此按鈕
+        btnStart.disabled = true;
+        // 改分數
+        score = 0;
+        textScore.innerText = score;
+        // 遊戲狀態
+        isInGame = true;
+        // 遊戲：每秒鐘換一次、遊戲時長
+        timer = setInterval(game,1200);
+        setTimeout(end, 12000);
+        // 先呼叫讓遊戲立即執行，否則會有延遲
+        game();
+
+         // 倒數
+        let sec = 12;
+        let timer2 = setInterval(() => {
+        sec--;
+        secs.innerText = `${sec} `;
+        if (sec === 0) {
+            clearInterval(timer2);
+        }
+      }, 1000);
+
+      // 停止按鈕動畫
+      btnStart.classList.remove("animate__flash")
+      // 開始計時動畫
+      secs.classList.add("animate__bounceIn")
+      clockImg.classList.add("animate__swing")
+      // 刪除輸贏圖
+      lose.classList.remove("lose")
+      lose.classList.remove("animate__rubberBand")
+      win.classList.remove("win")
+      win.classList.remove("animate__fadeInLeft")
+      high.classList.remove("high")
+      high.classList.remove("animate__flipInY")
+      };
+
+      // 每次跑隨機
+      const game = () => {
+        //   清空前一次隨機出的紅色和得分的藍色
+        for (const hole of holes) {
+          hole.classList.remove("A");
+          hole.classList.remove("B");
+          hole.classList.remove("C");
+          hole.classList.remove("D");
+          hole.classList.remove("E");
+          hole.classList.remove("F");
+          games.classList.remove("mouse")
+        }
+        // 跑隨機的煤炭
+        for (let i = 0; i < 2; i++) {
+          const random = Math.floor(Math.random() * 9);
+          holes[random].classList.add("A");
+        }
+        // 跑隨機的星星
+        for (let j = 0; j < 1; j++) {
+          const random = Math.floor(Math.random() * 9);
+          holes[random].classList.add("C");
+        }
+        // 跑隨機的老鼠
+        for (let k = 0; k < 1; k++) {
+          const random = Math.floor(Math.random() * 9);
+          holes[random].classList.add("E");
+        }
+      };
+
+      const end = () => {
+        //   停掉計時
+        clearInterval(timer);
+        // 把顏色清空
+        for (const hole of holes) {
+          hole.classList.remove("A");
+          hole.classList.remove("B");
+          hole.classList.remove("C");
+          hole.classList.remove("D");
+          hole.classList.remove("E");
+          hole.classList.remove("F");
+        }
+        btnStart.disabled = false;
+        alert(`☛ 你的分數是： ${score}`);
+
+        // 紀錄最高分
+        // 如果最高分 = null (無) 或分數高於歷史最高分
+        if (highscoreStorage === null || highscore.score < score) {
+          const name = prompt(" 𝓨𝓸𝓾 𝓪𝓻𝓮 𝓽𝓴𝓮 𝓫𝓮𝓼𝓽 👍 請輸入你的名字：");
+          highscore.score = score;
+          high.classList.add("high")
+          high.classList.add("animate__flipInY")
+          //   使用者沒打姓名，就叫路人
+          //   if (name === null || name.length === 0) {
+          //     highscore.name = "路人";
+          //   } else {
+          //     highscore.name = name;
+          //   }
+          highscore.name = name || "Guest";
+          localStorage.setItem("highscore", JSON.stringify(highscore));
+          textHighPlayer.innerText = highscore.name;
+          textHighScore.innerText = highscore.score;
+          }   else if (score <= 5) {
+          lose.classList.add("lose")
+          lose.classList.add("animate__rubberBand")
+          } else if (score > 5){
+          win.classList.add("win")
+          win.classList.add("animate__fadeInLeft")
+          }
+
+           // 游標還原
+        games.classList.remove("mouse");
+        // 重啟按鈕動畫
+        btnStart.classList.add("animate__flash")
+        // 停止計時動畫
+        secs.classList.remove("animate__bounceIn")
+        clockImg.classList.remove("animate__swing")
+      };  
+
+
+       
+
+      // 點到煤炭 → 消除煤炭 → 變成星星煤炭
+      for (const hole of holes) {
+        hole.onclick = () => {
+          if (hole.classList.contains("A")) {
+            hole.classList.remove("A");
+            hole.classList.add("B");
+            games.classList.add("mouse")
+
+            score++;
+            textScore.innerText = score;
+          } else if (hole.classList.contains("C")) {
+            hole.classList.remove("C");
+            hole.classList.add("D");
+            games.classList.add("mouse")
+
+            score+= 2;
+            textScore.innerText = score;
+          } else if (hole.classList.contains("E")){
+            hole.classList.remove("E");
+            hole.classList.add("F");
+            games.classList.add("mouse")
+
+            score--;
+            textScore.innerText = score;
+          }
+        };
+      }
+
+      //   偵測按鍵 onkeydown 只能用 document
+      document.onkeydown = (event) => {
+        const key = event.key;
+        //   isNaN 不是數字，前面加驚嘆號 !isNaN 它是數字
+        if (!isNaN(key) && isInGame) {
+          //   數字找到遊戲對應的洞
+          const target = document.getElementById(`hole${key}`);
+          if (target && target.classList.contains("A")) {
+            target.classList.remove("A");
+            target.classList.add("B");
+
+            score++;
+            textScore.innerText = score;
+          } else if (target && target.classList.contains("C")) {
+            target.classList.remove("C");
+            target.classList.add("D");
+
+            score+= 2;
+            textScore.innerText = score;
+          } else if (target && target.classList.contains("E")){
+            target.classList.remove("E");
+            target.classList.add("F");
+
+            score--;
+            textScore.innerText = score;
+          }
+        }
+      };
+      
+      // 點擊出現規則圖
+      rule.onclick = () =>{
+        ruleImg.classList.add("rule")
+      };
+
+      // 點規則圖後消失
+      ruleImg.onclick = () => {
+        ruleImg.classList.remove("rule")
+      };
+
+      // 點擊螢幕全範圍：輸贏圖/高分圖會消失
+      container.onclick = () => {
+        lose.classList.remove("lose")
+        win.classList.remove("win")
+        high.classList.remove("high")
+
+      }
+
+
+    </script>
+  </body>
+</html>
